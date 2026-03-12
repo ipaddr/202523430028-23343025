@@ -3,6 +3,7 @@ import 'auth_service.dart';
 import 'login_view.dart';
 import 'notes_view.dart';
 import 'verify_email_view.dart';
+import 'main.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
