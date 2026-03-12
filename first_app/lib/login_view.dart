@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'register_view.dart';
+import 'verify_email_view.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -48,7 +49,7 @@ class _LoginViewState extends State<LoginView> {
               obscureText: true,
             ),
 
-            // Updated Login Button with Firebase
+            // Login Button with Firebase
             TextButton(
               onPressed: () async {
                 final email = _email.text;
@@ -61,10 +62,33 @@ class _LoginViewState extends State<LoginView> {
                     password: password,
                   );
 
+                  final user = userCredential.user;
+                    await user?.reload();
+                    final freshUser = FirebaseAuth.instance.currentUser;
+
                   if (!mounted) return;
 
                   // succesful login :)
-                  Navigator.of(context).pushNamedAndRemoveUntil('/notes/', (route) => false);
+                  if (freshUser?.emailVerified ?? false) {
+                    // SUCCESS: Email is verified
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/notes/',
+                        (route) => false,
+                    );
+
+                    } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Please verify your email first.')),
+                    );
+
+                    // Redirect to the Verify Email View
+                    // needs the user to be logged in to call .sendEmailVerification()
+                    if (!mounted) return;
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/verify-email/',
+                        (route) => false,
+                    );
+                    }
 
                 } on FirebaseAuthException catch (e) {
                     String errorMessage = 'An error occurred';

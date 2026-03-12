@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'main_ui.dart';
 import 'notes_view.dart';
+import 'verify_email_view.dart';
 
 void main() async {
   // Ensure Flutter is ready for native calls
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
       '/login/': (context) => const LoginView(),
       '/register/': (context) => const RegisterView(),
       '/notes/': (context) => const NotesView(),
+      '/verify-email/': (context) => const VerifyEmailView(),
     },
     );
   }

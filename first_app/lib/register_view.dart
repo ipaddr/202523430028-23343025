@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'login_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'verify_email_view.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -63,10 +64,14 @@ class _RegisterViewState extends State<RegisterView> {
                     password: password,
                 );
 
-                print('Successfully registered: ${userCredential.user?.email}');
+                await userCredential.user?.sendEmailVerification();
+                print('Verification email sent to : ${userCredential.user?.email}');
 
-                // ToDO later: Navigate to Login
-                // Navigator.of(context).pushNamedAndRemoveUntil('/login/', (route) => false);
+                // Navigate to Verification view
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/verify-email/',
+                    (route) => false,
+                );
 
                 } on FirebaseAuthException catch (e) {
                 // Handle specific Firebase errors

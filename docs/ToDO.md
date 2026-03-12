@@ -11,7 +11,7 @@
 * [x] `03:27:12` Dart Enumerations, Classes and Objects
 * [x] `04:18:36` Advanced Dart
 * [x] `05:00:41` Project Setup
-* [ ] `05:48:30` iOS App Setup
+* [x] `05:48:30` iOS App Setup
 * [x] `06:59:32` Android App Setup
 * [x] `07:31:31` Firebase Backend Setup
 * [x] `08:01:20` Basic Registration Screen
